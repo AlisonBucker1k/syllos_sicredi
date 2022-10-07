@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentoController extends Controller
 {
-    private static $base_api = 'https://apim-canais.hom.sicredi.net/';
+    private static $base_api = 'https://apim-canais.hom.sicredi.net:8243/';
 
     public function getFolderByCpf()
     {
