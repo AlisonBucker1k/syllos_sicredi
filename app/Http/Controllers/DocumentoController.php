@@ -13,6 +13,7 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
+        echo 'porra'; exit;
         $docs = Documentos::getAll();
         $cpfList = [];
 
