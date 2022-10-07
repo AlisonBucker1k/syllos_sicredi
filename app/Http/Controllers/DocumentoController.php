@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentoController extends Controller
 {
-    private static $base_api = 'https://apim-canais.hom.sicredi.net:8243/';
+    private static $base_api = 'https://172.29.66.86:8243/';
 
     public function getFolderByCpf()
     {
@@ -24,7 +24,7 @@ class DocumentoController extends Controller
                 array_push($cpfList, $cpf);
             }
         }
-        
+
         foreach ($cpfList as $cpf) {
             $folder = Http::post(self::$base_api.'ged-document/document/search', [
                 "filters" => [
