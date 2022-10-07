@@ -13,7 +13,7 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-
+        echo 'DISGRAçA'; exit;
         $docs = Documentos::getAll();
         $cpfList = [];
 
@@ -52,7 +52,7 @@ class DocumentoController extends Controller
                     "CODE"
                 ]
             ])->json();
-            
+
             dd($folder);
         }
     }
