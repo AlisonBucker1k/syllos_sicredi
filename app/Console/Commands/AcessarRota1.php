@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Http\Request;
 
 class AcessarRota1 extends Command
 {
@@ -27,7 +28,11 @@ class AcessarRota1 extends Command
      */
     public function handle()
     {
-        route('documento.cpf');
-        return Command::SUCCESS;
+        $request = Request::create(route('documento.cpf'), 'GET');
+        $response = app()->handle($request);
+        $responseBody = json_decode($response->getContent(), true);
+        dd($responseBody);
+        return $responseBody;
+        // return Command::SUCCESS;
     }
 }
