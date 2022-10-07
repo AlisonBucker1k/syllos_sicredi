@@ -24,7 +24,7 @@ class DocumentoController extends Controller
                 array_push($cpfList, $cpf);
             }
         }
-
+        dd($cpfList);
         foreach ($cpfList as $cpf) {
             $folder = Http::post(self::$base_api.'ged-document/document/search', [
                 "filters" => [
