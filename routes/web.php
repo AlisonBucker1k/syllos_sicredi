@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('documento/')->controller(DocumentoController::class)->group(function () {
-    Route::get('cpf', 'getFolderByCpf');
+Route::prefix('documento/')->name('documento.')->controller(DocumentoController::class)->group(function () {
+    Route::get('cpf', 'getFolderByCpf')->name('cpf');
 });
