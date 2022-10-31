@@ -17,7 +17,7 @@ class DocumentoController extends Controller
         $request = Http::withHeaders([
             'Authorization' => 'Bearer '.self::$credential
         ])
-        ->post('https://apim-canais.hom.sicredi.net:8243/token?grant_type=client_credentials',[
+        ->post(self::$base_api.'token?grant_type=client_credentials',[
             'grant_type' => 'client_credentials'
         ])
         ->json();
