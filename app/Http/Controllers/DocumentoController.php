@@ -16,9 +16,9 @@ class DocumentoController extends Controller
     {
         $request = Http::withHeaders([
             'key' => 'grant_type',
-            'Authorization' => 'Bearer Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh'
+            'Authorization' => 'Bearer '.self::$credential
         ])
-        ->post(self::$base_api.'token?grant_type='.self::$credential)
+        ->post(self::$base_api.'token?grant_type=client_credentials')
         ->json();
         dd($request);
 
