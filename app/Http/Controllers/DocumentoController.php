@@ -13,7 +13,7 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-        $request = Http::post(self::$base_api.'token?grant_type=123')->json();
+        $request = Http::post(self::$base_api.'token?grant_type=Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh')->json();
         dd($request);
 
         // $docs = Documentos::getAll();
