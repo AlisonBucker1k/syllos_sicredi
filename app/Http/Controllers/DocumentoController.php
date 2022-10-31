@@ -15,8 +15,8 @@ class DocumentoController extends Controller
     public function getFolderByCpf()
     {
         $request = Http::withHeaders([
-
-            'Authorization' => 'Bearer '.self::$credential
+            'key' => 'grant_type',
+            'Authorization' => 'Bearer Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh'
         ])
         ->post(self::$base_api.'token?grant_type='.self::$credential)
         ->json();
