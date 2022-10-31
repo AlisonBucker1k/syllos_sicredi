@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\Storage;
 class DocumentoController extends Controller
 {
     private static $base_api = 'https://apim-canais.hom.sicredi.net:8243/';
+    protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
     public function getFolderByCpf()
     {
-        $request = Http::post(self::$base_api.'token?grant_type=Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh')->json();
+        $request = Http::post(self::$base_api.'token?grant_type='.self::$credential)
+        ->withHeaders([
+            'Authorization' => 'Bearer '.self::$credential
+        ])
+        ->json();
         dd($request);
 
         // $docs = Documentos::getAll();
