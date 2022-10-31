@@ -14,10 +14,11 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-        $request = Http::post(self::$base_api.'token?grant_type='.self::$credential)
-        ->withHeaders([
+        $request = Http::withHeaders([
+
             'Authorization' => 'Bearer '.self::$credential
         ])
+        ->post(self::$base_api.'token?grant_type='.self::$credential)
         ->json();
         dd($request);
 
