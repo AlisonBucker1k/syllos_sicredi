@@ -80,7 +80,7 @@ class DocumentoController extends Controller
                 ]
             ]
         ])
-        ->dd();
+        ->json();
         dd($request);
 
         // $docs = Documentos::getAll();
