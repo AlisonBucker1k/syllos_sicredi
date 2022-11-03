@@ -14,7 +14,7 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-
+        dd('opa');
         $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
@@ -32,7 +32,7 @@ class DocumentoController extends Controller
         }
         dd($resp);
         curl_close($c);
-        
+
         // $request = Http::withHeaders([
         //     'Authorization' => 'Bearer '.self::$credential
         // ])
