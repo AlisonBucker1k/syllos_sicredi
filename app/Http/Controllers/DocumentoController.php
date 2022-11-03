@@ -65,6 +65,7 @@ class DocumentoController extends Controller
             'Host: 15.228.95.130',
             'Authorization: Bearer '.self::$credential
         ]);
+        curl_setopt($c, CURLOPT_POST, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, $data);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
