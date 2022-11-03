@@ -39,6 +39,31 @@ class DocumentoController extends Controller
             'Host: 15.228.95.130',
             'Authorization: Bearer '.self::$credential
         ]);
+        curl_setopt($c, CURLOPT_POSTFIELDS, [
+            "filters" => [
+                [
+                    "attributeType" => "METADATA",
+                    "name" => "xnrodocumento",
+                    "value" => "00475854985",
+                    "logicOperator" => "AND",
+                    "comparisonOperator" => "EQUAL"
+                ],
+                [
+                    "attributeType" => "DOCUMENT",
+                    "name" => "TYPE_DOCUMENT",
+                    "value" => "TD_PESSOA_VIRTUAL",
+                    "logicOperator" => "AND",
+                    "comparisonOperator" => "EQUAL"
+                ]
+            ],
+            "page" => 0,
+            "searchCriteria" => null,
+            "size" => 1,
+            "sortDirection" => "ASC",
+            "sortField" => [
+                "CODE"
+            ]
+        ]);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         $resp = curl_exec($c);
