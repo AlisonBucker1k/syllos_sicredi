@@ -14,16 +14,26 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-        
 
-        $request = Http::withHeaders([
-            'Authorization' => 'Bearer '.self::$credential
-        ])
-        ->withoutVerifying()
-        ->post(self::$base_api.'token?grant_type=client_credentials',[
-            'grant_type' => 'client_credentials'
-        ])
-        ->dd();
+        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            'Host: 15.228.95.130',
+            'Authorization: Bearer '.self::$credential
+        ]);
+        $resp = curl_exec($c);
+
+        dd($resp);
+        curl_close($c);
+        // $request = Http::withHeaders([
+        //     'Authorization' => 'Bearer '.self::$credential
+        // ])
+        // ->withoutVerifying()
+        // ->post(self::$base_api.'token?grant_type=client_credentials',[
+        //     'grant_type' => 'client_credentials'
+        // ])
+        // ->dd();
         // dd($request);
 
         // $docs = Documentos::getAll();
