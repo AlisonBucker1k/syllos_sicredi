@@ -32,14 +32,7 @@ class DocumentoController extends Controller
         // dd($resp);
         // curl_close($c);
 
-        $c = curl_init(self::$base_api.'ged-document/document/search');
-        curl_setopt($c, CURLOPT_POST, 1);
-        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_HTTPHEADER, [
-            'Host: 15.228.95.130',
-            'Authorization: Bearer '.self::$credential
-        ]);
-        curl_setopt($c, CURLOPT_POSTFIELDS, [
+        $data = [
             "filters" => [
                 [
                     "attributeType" => "METADATA",
@@ -63,7 +56,16 @@ class DocumentoController extends Controller
             "sortField" => [
                 "CODE"
             ]
+        ];
+
+        $c = curl_init(self::$base_api.'ged-document/document/search');
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            'Host: 15.228.95.130',
+            'Authorization: Bearer '.self::$credential
         ]);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $data);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         $resp = curl_exec($c);
