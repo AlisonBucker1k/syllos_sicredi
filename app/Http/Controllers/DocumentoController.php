@@ -15,23 +15,23 @@ class DocumentoController extends Controller
     public function getFolderByCpf()
     {
 
-        // $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
-        // curl_setopt($c, CURLOPT_POST, 1);
-        // curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-        // curl_setopt($c, CURLOPT_HTTPHEADER, [
-        //     'Host: 15.228.95.130',
-        //     'Authorization: Bearer '.self::$credential
-        // ]);
-        // curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        // curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        // $resp = curl_exec($c);
-        // $ce = curl_errno($c);
-        // if (!$resp) {
-        //     $error = curl_error($c);
-        //     dd($ce, $error);
-        // }
-        // dd($resp);
-        // curl_close($c);
+        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            'Host: 15.228.95.130',
+            'Authorization: Bearer '.self::$credential
+        ]);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        $resp = curl_exec($c);
+        $ce = curl_errno($c);
+        if (!$resp) {
+            $error = curl_error($c);
+            dd($ce, $error);
+        }
+        dd($resp);
+        curl_close($c);
 
 
         // $c = curl_init(self::$base_api.'ged-document/document/search');
@@ -47,41 +47,41 @@ class DocumentoController extends Controller
         // $resp = curl_exec($c);
         // $ce = curl_errno($c);
 
-        $request = Http::withHeaders([
-            'Host' => '15.228.95.130',
-            'Authorization' => 'Bearer '.self::$credential
-        ])
-        ->withoutVerifying()
-        ->post(self::$base_api.'ged-document/document/search',[
-            'grant_type' => 'client_credentials',
-            'filters' => [
-                [
-                    [
-                        "attributeType" => "METADATA",
-                        "name" => "xnrodocumento",
-                        "value" => "00475854985",
-                        "logicOperator" => "AND",
-                        "comparisonOperator" => "EQUAL"
-                    ],
-                    [
-                        "attributeType" => "DOCUMENT",
-                        "name" => "TYPE_DOCUMENT",
-                        "value" => "TD_PESSOA_VIRTUAL",
-                        "logicOperator" => "AND",
-                        "comparisonOperator" => "EQUAL"
-                    ]
-                ],
-                "page" => 0,
-                "searchCriteria" => null,
-                "size" => 1,
-                "sortDirection" => "ASC",
-                "sortField" => [
-                    "CODE"
-                ]
-            ]
-        ])
-        ->json();
-        dd($request);
+        // $request = Http::withHeaders([
+        //     'Host' => '15.228.95.130',
+        //     'Authorization' => 'Bearer '.self::$credential
+        // ])
+        // ->withoutVerifying()
+        // ->post(self::$base_api.'ged-document/document/search',[
+        //     'grant_type' => 'client_credentials',
+        //     'filters' => [
+        //         [
+        //             [
+        //                 "attributeType" => "METADATA",
+        //                 "name" => "xnrodocumento",
+        //                 "value" => "00475854985",
+        //                 "logicOperator" => "AND",
+        //                 "comparisonOperator" => "EQUAL"
+        //             ],
+        //             [
+        //                 "attributeType" => "DOCUMENT",
+        //                 "name" => "TYPE_DOCUMENT",
+        //                 "value" => "TD_PESSOA_VIRTUAL",
+        //                 "logicOperator" => "AND",
+        //                 "comparisonOperator" => "EQUAL"
+        //             ]
+        //         ],
+        //         "page" => 0,
+        //         "searchCriteria" => null,
+        //         "size" => 1,
+        //         "sortDirection" => "ASC",
+        //         "sortField" => [
+        //             "CODE"
+        //         ]
+        //     ]
+        // ])
+        // ->json();
+        // dd($request);
 
         // $docs = Documentos::getAll();
         // $cpfList = [];
