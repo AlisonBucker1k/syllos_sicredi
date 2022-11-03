@@ -66,7 +66,7 @@ class DocumentoController extends Controller
             'Authorization: Bearer '.self::$credential
         ]);
         curl_setopt($c, CURLOPT_POST, true);
-        curl_setopt($c, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         $resp = curl_exec($c);
