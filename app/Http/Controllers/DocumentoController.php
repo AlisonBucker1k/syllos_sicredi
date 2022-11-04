@@ -14,6 +14,7 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
+        dd('teste');
         // $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
         // curl_setopt($c, CURLOPT_POST, 1);
         // curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
@@ -42,7 +43,7 @@ class DocumentoController extends Controller
         ->dd();
         dd($request);
 
-        
+
 
         // $docs = Documentos::getAll();
         // $cpfList = [];
