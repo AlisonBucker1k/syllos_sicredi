@@ -12,29 +12,8 @@ class DocumentoController extends Controller
     private static $base_api = 'https://apim-canais.hom.sicredi.net:8243/';
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
-    private function getToken()
-    {
-        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_POST, 1);
-        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_HTTPHEADER, [
-            'Host: 15.228.95.130',
-            'Authorization: Bearer '.self::$credential
-        ]);
-        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        $resp = curl_exec($c);
-        $ce = curl_errno($c);
-        if (!$resp) {
-            return $resp['access_token'];
-        }
-    }
-
     public function getFolderByCpf()
     {
-
-        dd($this->getToken());
-
         $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
