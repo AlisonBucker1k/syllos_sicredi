@@ -32,9 +32,7 @@ class DocumentoController extends Controller
         // dd($resp);
         // curl_close($c);
 
-        $request = Http::withToken([
-            'Authorization' => 'Bearer '.self::$credential
-        ])
+        $request = Http::withToken('Bearer '.self::$credential)
         ->withoutVerifying()
         ->post(self::$base_api.'token?grant_type='.self::$credential,[
             'grant_type' => 'client_credentials'
