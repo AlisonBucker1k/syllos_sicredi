@@ -9,64 +9,18 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentoController extends Controller
 {
-    private static $base_api = 'https://apim-canais.hom.sicredi.net:8243/';
+    private static $base_api = 'http://apim-canais.hom.sicredi.net:8280/';
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
     public function getFolderByCpf()
     {
-        // $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
-        // curl_setopt($c, CURLOPT_POST, 1);
-        // curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-        // curl_setopt($c, CURLOPT_HTTPHEADER, [
-        //     'Host: 15.228.95.130',
-        //     'Authorization: Bearer '.self::$credential
-        // ]);
-        // curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        // curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        // $resp = curl_exec($c);
-        // $ce = curl_errno($c);
-        // if (!$resp) {
-        //     $error = curl_error($c);
-        //     dd($ce, $error);
-        // }
-        // dd($resp);
-        // curl_close($c);
-
-        $data = [
-            "filters" => [
-                [
-                    "attributeType" => "METADATA",
-                    "name" => "xnrodocumento",
-                    "value" => "00475854985",
-                    "logicOperator" => "AND",
-                    "comparisonOperator" => "EQUAL"
-                ],
-                [
-                    "attributeType" => "DOCUMENT",
-                    "name" => "TYPE_DOCUMENT",
-                    "value" => "TD_PESSOA_VIRTUAL",
-                    "logicOperator" => "AND",
-                    "comparisonOperator" => "EQUAL"
-                ]
-            ],
-            "page" => 0,
-            "searchCriteria" => null,
-            "size" => 1,
-            "sortDirection" => "ASC",
-            "sortField" => [
-                "CODE"
-            ]
-        ];
-
-        $c = curl_init(self::$base_api.'ged-document/document/search');
+        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
         curl_setopt($c, CURLOPT_HTTPHEADER, [
             'Host: 15.228.95.130',
             'Authorization: Bearer '.self::$credential
         ]);
-        curl_setopt($c, CURLOPT_POST, true);
-        curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         $resp = curl_exec($c);
@@ -77,6 +31,52 @@ class DocumentoController extends Controller
         }
         dd($resp);
         curl_close($c);
+
+        // $data = [
+        //     "filters" => [
+        //         [
+        //             "attributeType" => "METADATA",
+        //             "name" => "xnrodocumento",
+        //             "value" => "00475854985",
+        //             "logicOperator" => "AND",
+        //             "comparisonOperator" => "EQUAL"
+        //         ],
+        //         [
+        //             "attributeType" => "DOCUMENT",
+        //             "name" => "TYPE_DOCUMENT",
+        //             "value" => "TD_PESSOA_VIRTUAL",
+        //             "logicOperator" => "AND",
+        //             "comparisonOperator" => "EQUAL"
+        //         ]
+        //     ],
+        //     "page" => 0,
+        //     "searchCriteria" => null,
+        //     "size" => 1,
+        //     "sortDirection" => "ASC",
+        //     "sortField" => [
+        //         "CODE"
+        //     ]
+        // ];
+
+        // $c = curl_init(self::$base_api.'ged-document/document/search');
+        // curl_setopt($c, CURLOPT_POST, 1);
+        // curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+        // curl_setopt($c, CURLOPT_HTTPHEADER, [
+        //     'Host: 15.228.95.130',
+        //     'Authorization: Bearer '.self::$credential
+        // ]);
+        // curl_setopt($c, CURLOPT_POST, true);
+        // curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($data));
+        // curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        // $resp = curl_exec($c);
+        // $ce = curl_errno($c);
+        // if (!$resp) {
+        //     $error = curl_error($c);
+        //     dd($ce, $error);
+        // }
+        // dd($resp);
+        // curl_close($c);
 
         // $request = Http::withHeaders([
         //     'Authorization' => 'Bearer '.self::$credential
