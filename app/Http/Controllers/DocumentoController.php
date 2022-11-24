@@ -14,31 +14,31 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_POST, 1);
-        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_HTTPHEADER, [
-            'Host: 15.228.95.130',
-            'Authorization: Bearer '.self::$credential
-        ]);
-        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        $resp = curl_exec($c);
-        $ce = curl_errno($c);
-        if (!$resp) {
-            $error = curl_error($c);
-            dd($ce, $error);
-        }
-        dd($resp);
-        curl_close($c);
+        // $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
+        // curl_setopt($c, CURLOPT_POST, 1);
+        // curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+        // curl_setopt($c, CURLOPT_HTTPHEADER, [
+        //     'Host: 15.228.95.130',
+        //     'Authorization: Bearer '.self::$credential
+        // ]);
+        // curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        // $resp = curl_exec($c);
+        // $ce = curl_errno($c);
+        // if (!$resp) {
+        //     $error = curl_error($c);
+        //     dd($ce, $error);
+        // }
+        // dd($resp);
+        // curl_close($c);
 
-        // $request = Http::withToken('Bearer '.self::$credential)
-        // ->withoutVerifying()
-        // ->post(self::$base_api.'token?grant_type='.self::$credential,[
-        //     'grant_type' => 'client_credentials'
-        // ])
-        // ->json();
-        // dd($request);
+        $request = Http::withToken('Bearer '.self::$credential)
+        ->withoutVerifying()
+        ->post(self::$base_api.'token?grant_type='.self::$credential,[
+            'grant_type' => 'client_credentials'
+        ])
+        ->json();
+        dd($request);
 
 
 
