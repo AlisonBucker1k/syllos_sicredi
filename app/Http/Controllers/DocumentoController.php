@@ -66,6 +66,14 @@ class DocumentoController extends Controller
 
     private function getToken()
     {
+        $request = Http::withToken('Bearer '.self::$credential)
+        ->withoutVerifying()
+        ->post(self::$base_api.'token?grant_type='.self::$credential,[
+            'grant_type' => 'client_credentials'
+        ])
+        ->json();
+        dd($request);
+
         // $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
         // curl_setopt($c, CURLOPT_POST, 1);
         // curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
