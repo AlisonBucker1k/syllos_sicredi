@@ -15,7 +15,7 @@ class DocumentoController extends Controller
     public function getFolderByCpf()
     {
 
-        $this->getToken();
+       dd( $this->getToken());
 
 
 
@@ -98,8 +98,8 @@ class DocumentoController extends Controller
         // }
 
         echo 'credentials <br>';
-        $response = json_encode($resp);
-        dd($response);
+        $response = json_decode(json_encode($resp));
 
+        return $response['access_token'];
     }
 }
