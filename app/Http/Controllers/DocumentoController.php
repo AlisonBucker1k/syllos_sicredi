@@ -44,7 +44,7 @@ class DocumentoController extends Controller
         ];
 
         $request = Http::withToken($this->getToken())
-            ->post('ged-document/document/search', $body);
+            ->post(self::$base_api.'ged-document/document/search', $body);
 
         dd($request);
 
