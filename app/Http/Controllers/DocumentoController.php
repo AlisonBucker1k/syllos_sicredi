@@ -66,18 +66,18 @@ class DocumentoController extends Controller
 
     private function getToken()
     {
-        $request = Http::withToken('Bearer '.self::$credential)
-        ->withHeaders([
-            'Host: 15.228.95.130',
-            'Authorization: Bearer '.self::$credential
-        ])
-        ->withoutVerifying()
-        ->post(self::$base_api.'token?grant_type=client_credentials',[
-            // 'grant_type' => 'client_credentials'
-            'grant_type=client_credentials'
-        ])
-        ->json();
-        dd($request);
+        // $request = Http::withToken('Bearer '.self::$credential)
+        // ->withHeaders([
+        //     'Host: 15.228.95.130',
+        //     'Authorization: Bearer '.self::$credential
+        // ])
+        // ->withoutVerifying()
+        // ->post(self::$base_api.'token?grant_type=client_credentials',[
+        //     // 'grant_type' => 'client_credentials'
+        //     'grant_type=client_credentials'
+        // ])
+        // ->json();
+        // dd($request);
 
         $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
         curl_setopt($c, CURLOPT_POST, 1);
@@ -89,14 +89,15 @@ class DocumentoController extends Controller
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         $resp = curl_exec($c);
-        $ce = curl_errno($c);
+        // $ce = curl_errno($c);
         if (!$resp) {
             $error = curl_error($c);
             // dd($ce, $error);
         }
-        // echo 'credentials <br>';
-        // $response = json_decode($ce);
-        // dd($response);
-        // curl_close($c);
+
+        echo 'credentials <br>';
+        $response = json_decode($resp);
+        dd($response);
+        curl_close($c);
     }
 }
