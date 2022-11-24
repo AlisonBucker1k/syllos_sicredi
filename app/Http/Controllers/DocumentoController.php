@@ -89,7 +89,7 @@ class DocumentoController extends Controller
         }
         echo 'credentials <br>';
         $response = json_decode($ce);
-        dd($response);
+        // dd($response);
         curl_close($c);
     }
 }
