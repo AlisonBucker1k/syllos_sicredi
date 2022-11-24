@@ -81,6 +81,7 @@ class DocumentoController extends Controller
 
         $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
         curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
         curl_setopt($c, CURLOPT_HTTPHEADER, [
             'Host: 15.228.95.130',
@@ -96,12 +97,9 @@ class DocumentoController extends Controller
         //     // dd($ce, $error);
         // }
 
-        $info = curl_getinfo($c);
-        dd($info);
-
         echo 'credentials <br>';
         $response = json_encode($resp);
-        dd($c);
+        dd($response);
 
     }
 }
