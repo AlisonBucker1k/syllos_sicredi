@@ -14,23 +14,8 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_POST, 1);
-        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_HTTPHEADER, [
-            'Host: 15.228.95.130',
-            'Authorization: Bearer '.self::$credential
-        ]);
-        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        $resp = curl_exec($c);
-        $ce = curl_errno($c);
-        if (!$resp) {
-            $error = curl_error($c);
-            dd($ce, $error);
-        }
-        dd($resp);
-        curl_close($c);
+
+        $this->getToken();
 
         // $request = Http::withToken('Bearer '.self::$credential)
         // ->withoutVerifying()
@@ -83,5 +68,27 @@ class DocumentoController extends Controller
 
         //     dd($folder);
         // }
+    }
+
+    private function getToken()
+    {
+        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            'Host: 15.228.95.130',
+            'Authorization: Bearer '.self::$credential
+        ]);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        $resp = curl_exec($c);
+        $ce = curl_errno($c);
+        if (!$resp) {
+            $error = curl_error($c);
+            dd($ce, $error);
+        }
+        echo 'credentials <br>';
+        dd($resp['access_token']);
+        curl_close($c);
     }
 }
