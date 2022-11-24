@@ -88,7 +88,8 @@ class DocumentoController extends Controller
             dd($ce, $error);
         }
         echo 'credentials <br>';
-        dd($resp['access_token']);
+        $response = json_decode($resp);
+        dd($response);
         curl_close($c);
     }
 }
