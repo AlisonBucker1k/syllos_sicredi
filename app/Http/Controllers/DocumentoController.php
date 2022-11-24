@@ -81,6 +81,6 @@ class DocumentoController extends Controller
 
         $response = json_decode($resp);
 
-        return $response['access_token'];
+        return $response->access_token;
     }
 }
