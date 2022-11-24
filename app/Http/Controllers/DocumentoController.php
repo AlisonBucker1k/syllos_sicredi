@@ -15,8 +15,38 @@ class DocumentoController extends Controller
     public function getFolderByCpf()
     {
 
-       dd( $this->getToken());
+        $body = [
+            "filters" => [
+                [
+                    "attributeType" => "METADATA",
+                    "name" => "xnrodocumento",
+                    "value" => "00475854985",
+                    "logicOperator" => "AND",
+                    "comparisonOperator" => "EQUAL"
+                ],
+                [
+                    "attributeType" => "DOCUMENT",
+                    "name" => "TYPE_DOCUMENT",
+                    "value" => "TD_PESSOA_VIRTUAL",
+                    "logicOperator" => "AND",
+                    "comparisonOperator" => "EQUAL"
+                ]
+            ],
+            [
+                "page" => 0,
+                "searchCriteria" => null,
+                "size" => 1,
+                "sortDirection" => "ASC",
+                "sortField" => [
+                    "CODE"
+                ]
+            ]
+        ];
 
+        $request = Http::withToken($this->getToken())
+            ->post('ged-document/document/search', $body);
+
+        dd($request);
 
 
 
