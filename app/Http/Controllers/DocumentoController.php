@@ -43,14 +43,29 @@ class DocumentoController extends Controller
             ]
         ];
 
-        $request = Http::withToken($this->getToken())
-            ->withHeaders([
-                'Content-Type' => 'application/json',
-                'userLogged' => 'gustavo_medeiros'
-            ])
-            ->post(self::$base_api.'ged-document/document/search', $body);
+        $c = curl_init(self::$base_api.'ged-document/document/search');
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $body);
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            'Host: 15.228.95.130',
+            'Authorization: '.$this->getToken()
+        ]);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        $resp = curl_exec($c);
+        curl_close($c);
 
-        dd($request);
+        $response = json_decode($resp);
+
+        // $request = Http::withToken($this->getToken())
+        //     ->withHeaders([
+        //         'Content-Type' => 'application/json',
+        //         'userLogged' => 'gustavo_medeiros'
+        //     ])
+        //     ->post(self::$base_api.'ged-document/document/search', $body);
+
+        dd($response);
 
 
 
