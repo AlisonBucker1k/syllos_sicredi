@@ -96,6 +96,9 @@ class DocumentoController extends Controller
         //     // dd($ce, $error);
         // }
 
+        $info = curl_getinfo($c);
+        dd($info);
+
         echo 'credentials <br>';
         $response = json_encode($resp);
         dd($c);
