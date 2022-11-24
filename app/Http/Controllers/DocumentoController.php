@@ -89,6 +89,7 @@ class DocumentoController extends Controller
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         $resp = curl_exec($c);
+        curl_close($c);
         // $ce = curl_errno($c);
         // if (!$resp) {
         //     $error = curl_error($c);
@@ -98,6 +99,6 @@ class DocumentoController extends Controller
         echo 'credentials <br>';
         $response = json_encode($resp);
         dd($response);
-        curl_close($c);
+
     }
 }
