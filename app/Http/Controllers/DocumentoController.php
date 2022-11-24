@@ -85,10 +85,10 @@ class DocumentoController extends Controller
         $ce = curl_errno($c);
         if (!$resp) {
             $error = curl_error($c);
-            dd($ce, $error);
+            // dd($ce, $error);
         }
         echo 'credentials <br>';
-        $response = json_decode($resp);
+        $response = json_decode($ce);
         dd($response);
         curl_close($c);
     }
