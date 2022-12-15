@@ -13,7 +13,7 @@ class DocumentoController extends Controller
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
     public function newDocument()
-    {dd('test');
+    {
         return view('newDocument');
     }
 
