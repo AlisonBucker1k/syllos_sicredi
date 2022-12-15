@@ -70,7 +70,7 @@ class DocumentoController extends Controller
         $c = curl_init(self::$base_api.'ged-document/document');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($c, CURLOPT_POSTFIELDS, http_build_query($body));
+        curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($body));
         curl_setopt($c, CURLOPT_HTTPHEADER, [
             'Host: 15.228.95.130',
             // 'Authorization: '.$this->getToken(),
