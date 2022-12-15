@@ -12,9 +12,31 @@ class DocumentoController extends Controller
     private static $base_api = 'http://apim-canais.hom.sicredi.net:8280/';
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
+
+
     public function newDocument()
     {
-        return view('newDocument');
+
+        $c = curl_init(self::$base_api.'ged-document/document/200606918');
+        // curl_setopt($c, CURLOPT_POST, );
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($c, CURLOPT_POSTFIELDS, '');
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            // 'Host: 15.228.95.130',
+            // 'Authorization: '.$this->getToken(),
+            // 'Content-Type: application/json',
+            'userLoged: sysadmin'
+        ]);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        $resp = curl_exec($c);
+        curl_close($c);
+
+        $response = json_decode($resp);
+
+        dd($response);
+
+        // return view('newDocument');
     }
 
     public function newDocumentAction(Request $request)
@@ -84,7 +106,6 @@ class DocumentoController extends Controller
         $response = json_decode($resp);
 
         dd($response);
-
     }
 
     public function getFolderByCpf()
@@ -132,19 +153,34 @@ class DocumentoController extends Controller
 
         $response = json_decode($resp);
 
-        // $request = Http::withToken($this->getToken())
-        //     ->withHeaders([
-        //         'Content-Type' => 'application/json',
-        //         'userLogged' => 'gustavo_medeiros'
-        //     ])
-        //     ->post(self::$base_api.'ged-document/document/search', $body);
-
         dd($response);
 
+    }
+
+    private function getToken()
+    {
+        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            'Host: 15.228.95.130',
+            'Authorization: Bearer '.self::$credential
+        ]);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        $resp = curl_exec($c);
+        curl_close($c);
+
+        $response = json_decode($resp);
+
+        return $response->access_token;
+    }
+}
 
 
 
-        // $docs = Documentos::getAll();
+// $docs = Documentos::getAll();
         // $cpfList = [];
 
         // foreach ($docs as $doc) {
@@ -185,25 +221,3 @@ class DocumentoController extends Controller
 
         //     dd($folder);
         // }
-    }
-
-    private function getToken()
-    {
-        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_POST, 1);
-        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-        curl_setopt($c, CURLOPT_HTTPHEADER, [
-            'Host: 15.228.95.130',
-            'Authorization: Bearer '.self::$credential
-        ]);
-        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        $resp = curl_exec($c);
-        curl_close($c);
-
-        $response = json_decode($resp);
-
-        return $response->access_token;
-    }
-}
