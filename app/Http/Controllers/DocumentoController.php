@@ -16,25 +16,29 @@ class DocumentoController extends Controller
 
     public function newDocument()
     {
+        $resp = Http::withHeaders([
+            'userLogged' => 'sysadmin'
+        ])
+            ->get(self::$base_api.'ged-document/document/200606918');
 
-        $c = curl_init(self::$base_api.'ged-document/document/200606918');
-        // curl_setopt($c, CURLOPT_POST, );
-        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($c, CURLOPT_POSTFIELDS, '');
-        curl_setopt($c, CURLOPT_HTTPHEADER, [
-            // 'Host: 15.228.95.130',
-            // 'Authorization: '.$this->getToken(),
-            // 'Content-Type: application/json',
-            'userLoged: sysadmin'
-        ]);
-        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        $resp = curl_exec($c);
-        curl_close($c);
+        // $c = curl_init(self::$base_api.'ged-document/document/200606918');
+        // // curl_setopt($c, CURLOPT_POST, );
+        // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($c, CURLOPT_POSTFIELDS, '');
+        // curl_setopt($c, CURLOPT_HTTPHEADER, [
+        //     // 'Host: 15.228.95.130',
+        //     // 'Authorization: '.$this->getToken(),
+        //     // 'Content-Type: application/json',
+        //     'userLoged: sysadmin'
+        // ]);
+        // curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        // $resp = curl_exec($c);
+        // curl_close($c);
 
-        $response = json_decode($resp);
+        // $response = json_decode($resp);
 
-        dd($response);
+        dd($resp);
 
         // return view('newDocument');
     }
