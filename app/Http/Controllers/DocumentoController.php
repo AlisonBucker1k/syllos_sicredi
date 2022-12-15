@@ -14,7 +14,7 @@ class DocumentoController extends Controller
 
     public function getFolderByCpf()
     {
-
+dd($this->getToken());
         $body = [
             "filters" => [
                 [
