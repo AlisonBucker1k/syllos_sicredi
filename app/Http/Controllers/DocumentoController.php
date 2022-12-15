@@ -18,7 +18,7 @@ class DocumentoController extends Controller
     }
 
     public function newDocumentAction(Request $request)
-    {
+    { dd($this->getToken());
         $body = [
             'files' => [$request->file],
             'in' => [
@@ -79,12 +79,11 @@ class DocumentoController extends Controller
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         $resp = curl_exec($c);
-        $err = curl_error($c);
         curl_close($c);
 
         $response = json_decode($resp);
 
-        dd($err);
+        dd($response);
 
     }
 
