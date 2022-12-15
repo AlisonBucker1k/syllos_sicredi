@@ -20,7 +20,7 @@ class DocumentoController extends Controller
             'userLogged' => 'sysadmin'
         ])
             ->withToken($this->getToken())
-            ->get(self::$base_api.'ged-document/document/200606918');
+            ->get(self::$base_api.'ged-document/document/200606918')->json();
 
         // $c = curl_init(self::$base_api.'ged-document/document/200606918');
         // // curl_setopt($c, CURLOPT_POST, );
