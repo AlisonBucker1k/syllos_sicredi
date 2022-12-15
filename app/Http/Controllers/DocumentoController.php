@@ -20,7 +20,7 @@ class DocumentoController extends Controller
     public function newDocumentAction(Request $request)
     {
         $body = [
-            'files' => $request->file,
+            'files' => [$request->file],
             'in' => [
                 "typeDocument" => "RELATORIO_CORPORATIVO",
                 "title" => "Relatório xxxx",
