@@ -12,8 +12,6 @@ class DocumentoController extends Controller
     private static $base_api = 'http://apim-canais.hom.sicredi.net:8280/';
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
-
-
     public function newDocument()
     {
         return view('newDocument');
@@ -21,74 +19,63 @@ class DocumentoController extends Controller
 
     public function newDocumentAction(Request $request)
     {
+        // Cria pasta
+
         $body = [
-            'files' => [$request->file],
             'in' => [
-                "typeDocument" => "RELATORIO_CORPORATIVO",
-                "title" => "Relatório xxxx",
-                "author" => "gustavo_medeiros",
+                "author" => "app_ged_XXXXXX",
                 "roles" => [
-                    "relatorio_corporativo"
+                    "sg_pessoa"
+                ],
+                "idProfile" => "PER_MIGRACAO",
+                "comments" => [
+                    "Criado pela migração do XXXXXX para o GED"
                 ],
                 "metadatas" => [
                     [
-                        "key" => "xdata",
-                        "value" => "10/04/2021"
+                    "key" => "xsglsistemaorigem",
+                    "value" => "XXXXX"
                     ],
                     [
-                        "key" => "xusuario",
-                        "value" => "gustavo_medeiros"
+                    "key" => "xcpfcnpj",
+                    "value" => $request->cpfcnpj
+                    ],
+                    [
+                    "key" => "xnompessoa",
+                    "value" => $request->nome_pessoa
+                    ],
+                    [
+                    "key" => "xtpopessoa",
+                    "value" => "PF"
+                    ],
+                    [
+                    "key" => "xcodcooperativa",
+                    "value" => "3003"
                     ]
                 ],
-                "tags" => [
-                    "nao_obrigatorio"
-                ],
-                "comments" => [
-                    "Comentário não obrigatório"
-                ],
-                "partition" => "RELATORIO",
-                "systemOrigin" => "RelatorioCorporativoService",
-                "virtual" => false,
+                "partition" => "XXXXX_GED",
                 "publicDocument" => true,
+                "systemOrigin" => "XXXXX",
+                "tags" => [
+                    "XXXX",
+                    "XXXX_id_pessoa=112313"
+                ],
+                "title" => "12XXXXX - POLLIANA LARISSA KRONBAUER",
+                "typeDocument" => "PASTA_VIRTUAL",
+                "virtual" => true,
                 "entityOwner" => [
+                    "cooperative" => "aaa",
+                    "agency" => "696768",
                     "context" => "cas-p"
                 ],
-                "flgRestricted" => true,
-                "restricted" => ["gustavo_medeiros"],
-                "flgExclusive" => false,
-                "idAuthenticity" => "ORIGINAL",
-                "checkDiscard" =>true,
-                "limitStorageDate" =>"2021-06-20",
-                "files" => [
-                    [
-                        "name" => $request->file,
-                        "rendition" => "FULL"
-                    ]
-                ]
+                "idAuthenticity" => "ORIGINAL"
             ]
         ];
 
-        $response = Http::withToken($this->getToken())
-            ->post(self::$base_api.'get-document/document', $body)->json();
+        $request = Http::withToken($this->getToken())
+            ->post('ged-document/document', $body)->json();
 
-        // $c = curl_init(self::$base_api.'ged-document/document');
-        // curl_setopt($c, CURLOPT_POST, 1);
-        // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($body));
-        // curl_setopt($c, CURLOPT_HTTPHEADER, [
-        //     // 'Host: 15.228.95.130',
-        //     // 'Authorization: '.$this->getToken(),
-        //     'Content-Type: application/json',
-        //     'userLoged: sysadmin'
-        // ]);
-        // curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        // curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        // $resp = curl_exec($c);
-        // curl_close($c);
-
-        // $response = json_decode($resp);
-
-        dd($response);
+        dd($request);
     }
 
     public function getDocument($document_id)
