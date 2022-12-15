@@ -73,7 +73,7 @@ class DocumentoController extends Controller
         ];
 
         $request = Http::withToken($this->getToken())
-            ->post('ged-document/document', $body)->json();
+            ->post(self::$base_api.'ged-document/document', $body)->json();
 
         dd($request);
     }
