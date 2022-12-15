@@ -18,7 +18,7 @@ class DocumentoController extends Controller
     }
 
     public function newDocumentAction(Request $request)
-    { dd($this->getToken());
+    {
         $body = [
             'files' => [$request->file],
             'in' => [
@@ -71,8 +71,8 @@ class DocumentoController extends Controller
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($body));
         curl_setopt($c, CURLOPT_HTTPHEADER, [
-            'Host: 15.228.95.130',
-            'Authorization: '.$this->getToken(),
+            // 'Host: 15.228.95.130',
+            // 'Authorization: '.$this->getToken(),
             'Content-Type: application/json',
             'userLoged: sysadmin'
         ]);
