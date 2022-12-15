@@ -66,7 +66,7 @@ class DocumentoController extends Controller
             ]
         ];
 
-
+dd($body);
         $c = curl_init(self::$base_api.'ged-document/document');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
