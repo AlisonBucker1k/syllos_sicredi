@@ -12,9 +12,82 @@ class DocumentoController extends Controller
     private static $base_api = 'http://apim-canais.hom.sicredi.net:8280/';
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
+    public function newDocument()
+    {
+        return view('newDocument');
+    }
+
+    public function newDocumentAction(Request $request)
+    {
+        $body = [
+            'files' => '',
+            'in' => [
+                "typeDocument" => "RELATORIO_CORPORATIVO",
+                "title" => "Relatório xxxx",
+                "author" => "gustavo_medeiros",
+                "roles" => [
+                    "relatorio_corporativo"
+                ],
+                "metadatas" => [
+                    [
+                        "key" => "xdata",
+                        "value" => "10/04/2021"
+                    ],
+                    [
+                        "key" => "xusuario",
+                        "value" => "gustavo_medeiros"
+                    ]
+                ],
+                "tags" => [
+                    "nao_obrigatorio"
+                ],
+                "comments" => [
+                    "Comentário não obrigatório"
+                ],
+                "partition" => "RELATORIO",
+                "systemOrigin" => "RelatorioCorporativoService",
+                "virtual" => false,
+                "publicDocument" => true,
+                "entityOwner" => [
+                    "context" => "cas-p"
+                ],
+                "flgRestricted" => true,
+                "restricted" => ["gustavo_medeiros"],
+                "flgExclusive" => false,
+                "idAuthenticity" => "ORIGINAL",
+                "checkDiscard" =>true,
+                "limitStorageDate" =>"2021-06-20",
+                "files" => [
+                    [
+                        "name" => $request->file,
+                        "rendition" => "FULL"
+                    ]
+                ]
+            ]
+        ];
+
+
+        $c = curl_init(self::$base_api.'ged-document/document/document');
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($c, CURLOPT_POSTFIELDS, http_build_query($body));
+        curl_setopt($c, CURLOPT_HTTPHEADER, [
+            'Host: 15.228.95.130',
+            'Authorization: '.$this->getToken()
+        ]);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
+        $resp = curl_exec($c);
+        curl_close($c);
+
+        $response = json_decode($resp);
+
+        dd($response);
+
+    }
+
     public function getFolderByCpf()
     {
-dd($this->getToken());
         $body = [
             "filters" => [
                 [
