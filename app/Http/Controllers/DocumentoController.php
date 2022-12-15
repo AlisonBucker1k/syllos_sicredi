@@ -73,7 +73,9 @@ class DocumentoController extends Controller
         curl_setopt($c, CURLOPT_POSTFIELDS, http_build_query($body));
         curl_setopt($c, CURLOPT_HTTPHEADER, [
             'Host: 15.228.95.130',
-            'Authorization: '.$this->getToken()
+            // 'Authorization: '.$this->getToken(),
+            'Content-Type: application/json',
+            'userLoged: sysadmin'
         ]);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
