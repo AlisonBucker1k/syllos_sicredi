@@ -19,6 +19,7 @@ class DocumentoController extends Controller
         $resp = Http::withHeaders([
             'userLogged' => 'sysadmin'
         ])
+            ->withToken($this->getToken())
             ->get(self::$base_api.'ged-document/document/200606918');
 
         // $c = curl_init(self::$base_api.'ged-document/document/200606918');
