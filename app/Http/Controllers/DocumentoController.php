@@ -13,7 +13,7 @@ class DocumentoController extends Controller
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
     public function newDocument()
-    {
+    {dd('test');
         return view('newDocument');
     }
 
@@ -67,7 +67,7 @@ class DocumentoController extends Controller
         ];
 
 
-        $c = curl_init(self::$base_api.'ged-document/document/document');
+        $c = curl_init(self::$base_api.'ged-document/document');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, http_build_query($body));
