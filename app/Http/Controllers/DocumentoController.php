@@ -81,6 +81,7 @@ class DocumentoController extends Controller
         $body = $this->getDefaultBody($title);
 
         $request = Http::withHeaders([
+            'Content-Type: multipart/form-data',
             'userLogged' => 'sysadmin',
             'enctype' => 'multipart/formdata'
         ])
