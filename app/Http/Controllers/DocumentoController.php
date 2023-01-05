@@ -83,6 +83,7 @@ class DocumentoController extends Controller
             'userLogged' => 'sysadmin',
             'enctype' => 'multipart/formdata'
         ])
+            ->withoutVerifying()
             ->withToken($this->getToken())
             ->post(self::$base_api . 'ged-document/document', $body);
 
