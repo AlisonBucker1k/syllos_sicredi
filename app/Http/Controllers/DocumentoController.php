@@ -23,18 +23,18 @@ class DocumentoController extends Controller
 
         $body = [
             'in' => [
-                "author" => "app_ged_XXXXXX",
+                "author" => "app_ged_syllosdoc",
                 "roles" => [
                     "sg_pessoa"
                 ],
                 "idProfile" => "PER_MIGRACAO",
                 "comments" => [
-                    "Criado pela migração do XXXXXX para o GED"
+                    "Criado pela migração do SyllosDoc para o GED"
                 ],
                 "metadatas" => [
                     [
                     "key" => "xsglsistemaorigem",
-                    "value" => "XXXXX"
+                    "value" => "syllosdoc"
                     ],
                     [
                     "key" => "xcpfcnpj",
@@ -42,7 +42,7 @@ class DocumentoController extends Controller
                     ],
                     [
                     "key" => "xnompessoa",
-                    "value" => $request->nome_pessoa
+                    "value" => $request->cpfcnpj
                     ],
                     [
                     "key" => "xtpopessoa",
@@ -53,19 +53,18 @@ class DocumentoController extends Controller
                     "value" => "3003"
                     ]
                 ],
-                "partition" => "XXXXX_GED",
+                "partition" => "SYLLOSDOC_GED",
                 "publicDocument" => true,
-                "systemOrigin" => "XXXXX",
+                "systemOrigin" => "SyllosDoc",
                 "tags" => [
-                    "XXXX",
-                    "XXXX_id_pessoa=112313"
+                    $request->cpfcnpj
                 ],
-                "title" => "12XXXXX - POLLIANA LARISSA KRONBAUER",
+                "title" => $request->cpfcnpj,
                 "typeDocument" => "PASTA_VIRTUAL",
                 "virtual" => true,
                 "entityOwner" => [
-                    "cooperative" => "aaa",
-                    "agency" => "696768",
+                    "cooperative" => "Sicredi Serrana",
+                    "agency" => "37",
                     "context" => "cas-p"
                 ],
                 "idAuthenticity" => "ORIGINAL"
