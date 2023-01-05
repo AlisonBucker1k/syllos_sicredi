@@ -52,12 +52,12 @@ class DocumentoController extends Controller
                 ],
                 [
                     "key" => "xcodcooperativa",
-                    "value" => "3003"
+                    "value" => "0167"
                 ]
             ],
             "partition" => "SYLLOSDOC_GED",
             "publicDocument" => true,
-            "systemOrigin" => "SYLLOSDOC",
+            "systemOrigin" => "SyllosDoc",
             "tags" => [
                 $this->cpfCnpj
             ],
