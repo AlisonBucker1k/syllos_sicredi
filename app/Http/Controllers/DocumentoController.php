@@ -84,7 +84,7 @@ class DocumentoController extends Controller
             ->attach('in', json_encode($body))
             ->post(self::$base_api . 'ged-document/document',[
                 [
-                    'name' => 'file',
+                    'name' => 'files',
                     'contents' => null,
                 ]
             ]);
