@@ -19,60 +19,58 @@ class DocumentoController extends Controller
     {
         return view('newDocument');
     }
-
     protected function getDefaultBody(?string $title = null)
     {
         $titulo = $title ? $title : $this->cpfCnpj;
 
-        $in = json_encode([
-            "title" => $titulo,
-            "author" => "app_ged_syllosdoc",
-            "roles" => [
-                "sg_pessoa"
-            ],
-            "idProfile" => "PER_MIGRACAO",
-            "comments" => [
-                "Criado pela migração do SyllosDoc para o GED"
-            ],
-            "metadatas" => [
-                [
-                    "key" => "xsglsistemaorigem",
-                    "value" => "syllosdoc"
-                ],
-                [
-                    "key" => "xcpfcnpj",
-                    "value" => $this->cpfCnpj
-                ],
-                [
-                    "key" => "xnompessoa",
-                    "value" => $this->cpfCnpj
-                ],
-                [
-                    "key" => "xtpopessoa",
-                    "value" => $this->tipoPessoa
-                ],
-                [
-                    "key" => "xcodcooperativa",
-                    "value" => "3003"
-                ]
-            ],
-            "partition" => "SYLLOSDOC_GED",
-            "publicDocument" => true,
-            "systemOrigin" => "SyllosDoc",
-            "tags" => [
-                $this->cpfCnpj
-            ],
-            "typeDocument" => "PASTA_VIRTUAL",
-            "virtual" => true,
-            "entityOwner" => [
-                "cooperative" => "Sicredi Serrana",
-                "agency" => "37",
-                "context" => "cas-p"
-            ],
-            "idAuthenticity" => "ORIGINAL"
-        ]);
         return [
-            'in' => $in
+            'in' => [
+                "title" => $titulo,
+                "author" => "app_ged_syllosdoc",
+                "roles" => [
+                    "sg_pessoa"
+                ],
+                "idProfile" => "PER_MIGRACAO",
+                "comments" => [
+                    "Criado pela migração do SyllosDoc para o GED"
+                ],
+                "metadatas" => [
+                    [
+                        "key" => "xsglsistemaorigem",
+                        "value" => "syllosdoc"
+                    ],
+                    [
+                        "key" => "xcpfcnpj",
+                        "value" => $this->cpfCnpj
+                    ],
+                    [
+                        "key" => "xnompessoa",
+                        "value" => $this->cpfCnpj
+                    ],
+                    [
+                        "key" => "xtpopessoa",
+                        "value" => $this->tipoPessoa
+                    ],
+                    [
+                        "key" => "xcodcooperativa",
+                        "value" => "3003"
+                    ]
+                ],
+                "partition" => "SYLLOSDOC_GED",
+                "publicDocument" => true,
+                "systemOrigin" => "SyllosDoc",
+                "tags" => [
+                    $this->cpfCnpj
+                ],
+                "typeDocument" => "PASTA_VIRTUAL",
+                "virtual" => true,
+                "entityOwner" => [
+                    "cooperative" => "Sicredi Serrana",
+                    "agency" => "37",
+                    "context" => "cas-p"
+                ],
+                "idAuthenticity" => "ORIGINAL"
+            ]
         ];
     }
 
@@ -81,11 +79,11 @@ class DocumentoController extends Controller
         $body = $this->getDefaultBody($title);
 
         $request = Http::withHeaders([
-            'Content-Type: application/json',
             'userLogged' => 'sysadmin',
             'enctype' => 'multipart/formdata'
         ])
             ->withToken($this->getToken())
+            ->asForm()
             ->post(self::$base_api . 'ged-document/document', $body);
 
         dd($request);
