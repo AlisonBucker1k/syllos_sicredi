@@ -82,7 +82,7 @@ class DocumentoController extends Controller
             'enctype' => 'multipart/formdata'
         ])
             ->withoutVerifying()
-            ->attach('in', $body, $body)
+            ->attach('in', json_encode($body))
             ->withToken($this->getToken())
             ->post(self::$base_api . 'ged-document/document', ['in' => $body]);
 
