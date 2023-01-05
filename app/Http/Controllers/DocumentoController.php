@@ -22,8 +22,8 @@ class DocumentoController extends Controller
     protected function getDefaultBody(?string $title = null)
     {
         $titulo = $title ? $title : $this->cpfCnpj;
-          
-          return [
+
+        return [
             "author" => "app_ged_syllosdoc",
             "roles" => [
                 "sg_pessoa"
@@ -76,18 +76,12 @@ class DocumentoController extends Controller
     {
         $body = $this->getDefaultBody($title);
 
-        $request = Http::withHeaders([
+        $request = Http::dd()->withHeaders([
             'userLogged' => 'sysadmin',
         ])
-            ->contentType("multipart/form-data")
             ->withoutVerifying()
             ->withToken($this->getToken())
-            ->post(self::$base_api . 'ged-document/document', [
-                [
-                    'name' => 'in',
-                    'contents' => json_encode($body),
-                ],
-            ]);
+            ->post(self::$base_api . 'ged-document/document', ['in' => $body]);
 
         dd($request);
     }
