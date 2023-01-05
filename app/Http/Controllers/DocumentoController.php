@@ -24,7 +24,6 @@ class DocumentoController extends Controller
         $titulo = $title ? $title : $this->cpfCnpj;
           
           return json_encode([
-            "title" => $titulo,
             "author" => "app_ged_syllosdoc",
             "roles" => [
                 "sg_pessoa"
@@ -61,6 +60,7 @@ class DocumentoController extends Controller
             "tags" => [
                 $this->cpfCnpj
             ],
+            "title" => $titulo,
             "typeDocument" => "PASTA_VIRTUAL",
             "virtual" => true,
             "entityOwner" => [
