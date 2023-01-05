@@ -86,9 +86,7 @@ class DocumentoController extends Controller
         ])
             ->post(self::$base_api . 'ged-document/document', $body);
 
-        if ($request->successful()) {
             dd($request);
-        }
     }
 
     public function newDocumentAction(Request $request)
