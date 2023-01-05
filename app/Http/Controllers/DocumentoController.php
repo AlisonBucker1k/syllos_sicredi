@@ -22,56 +22,8 @@ class DocumentoController extends Controller
     protected function getDefaultBody(?string $title = null)
     {
         $titulo = $title ? $title : $this->cpfCnpj;
-
-        return '{
-            "author": "app_ged_syllosdoc",
-            "roles": [
-              "sg_pessoa"
-            ],
-            "idProfile": "PER_MIGRACAO",
-            "comments": [
-              "Criado pela migração do SyllosDoc para o GED"
-            ],
-            "metadatas": [
-              {
-                "key": "xsglsistemaorigem",
-                "value": "syllosdoc"
-              },
-              {
-                "key": "xcpfcnpj",
-                "value": "'.$this->cpfCnpj.'"
-              },
-              {
-                "key": "xnompessoa",
-                "value": "'.$this->cpfCnpj.'"
-              },
-              {
-                "key": "xtpopessoa",
-                "value": "'.$this->tipoPessoa.'"
-              },
-              {
-                "key": "xcodcooperativa",
-                "value": "3003"
-              }
-            ],
-            "partition": "SYLLOSDOC_GED",
-            "publicDocument": true,
-            "systemOrigin": "SYLLOSDOC",
-            "tags": [
-              "'.$this->cpfCnpj.'",
-            ],
-            "title": "'.$titulo.'",
-            "typeDocument": "PASTA_VIRTUAL",
-            "virtual": true,
-            "entityOwner": {
-              "cooperative": "Sicredi Serrana",
-              "agency": "37",
-              "context": "cas-p"
-            },
-            "idAuthenticity": "ORIGINAL"
-          }';
           
-          /*return json_encode([
+          return json_encode([
             "title" => $titulo,
             "author" => "app_ged_syllosdoc",
             "roles" => [
@@ -112,12 +64,12 @@ class DocumentoController extends Controller
             "typeDocument" => "PASTA_VIRTUAL",
             "virtual" => true,
             "entityOwner" => [
-                "cooperative" => "Sicredi Serrana",
-                "agency" => "37",
+                "cooperative" => "0167",
+                "agency" => "01",
                 "context" => "cas-p"
             ],
             "idAuthenticity" => "ORIGINAL"
-        ]); */
+        ]);
     }
 
     protected function createFolder(string $title)
