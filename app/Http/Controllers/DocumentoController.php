@@ -57,7 +57,7 @@ class DocumentoController extends Controller
             ],
             "partition" => "SYLLOSDOC_GED",
             "publicDocument" => true,
-            "systemOrigin" => "SyllosDoc",
+            "systemOrigin" => "SYLLOSDOC",
             "tags" => [
                 $this->cpfCnpj
             ],
