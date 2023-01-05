@@ -23,7 +23,7 @@ class DocumentoController extends Controller
     {
         $titulo = $title ? $title : $this->cpfCnpj;
           
-          return json_encode([
+          return [
             "author" => "app_ged_syllosdoc",
             "roles" => [
                 "sg_pessoa"
@@ -69,7 +69,7 @@ class DocumentoController extends Controller
                 "context" => "cas-p"
             ],
             "idAuthenticity" => "ORIGINAL"
-        ]);
+        ];
     }
 
     protected function createFolder(string $title)
