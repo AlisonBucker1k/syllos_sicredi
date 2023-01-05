@@ -82,8 +82,12 @@ class DocumentoController extends Controller
             ->withoutVerifying()
             ->withToken($this->getToken())
             ->attach('in', json_encode($body))
-            ->attach('files', null)
-            ->post(self::$base_api . 'ged-document/document');
+            ->post(self::$base_api . 'ged-document/document',[
+                [
+                    'name' => 'file',
+                    'contents' => null,
+                ]
+            ]);
 
         dd($request);
     }
