@@ -23,69 +23,68 @@ class DocumentoController extends Controller
     {
         $titulo = $title ? $title : $this->cpfCnpj;
 
-        return [
-            'in' => [
-                "title" => $titulo,
-                "author" => "app_ged_syllosdoc",
-                "roles" => [
-                    "sg_pessoa"
+        return json_encode([
+            "title" => $titulo,
+            "author" => "app_ged_syllosdoc",
+            "roles" => [
+                "sg_pessoa"
+            ],
+            "idProfile" => "PER_MIGRACAO",
+            "comments" => [
+                "Criado pela migração do SyllosDoc para o GED"
+            ],
+            "metadatas" => [
+                [
+                    "key" => "xsglsistemaorigem",
+                    "value" => "syllosdoc"
                 ],
-                "idProfile" => "PER_MIGRACAO",
-                "comments" => [
-                    "Criado pela migração do SyllosDoc para o GED"
+                [
+                    "key" => "xcpfcnpj",
+                    "value" => $this->cpfCnpj
                 ],
-                "metadatas" => [
-                    [
-                        "key" => "xsglsistemaorigem",
-                        "value" => "syllosdoc"
-                    ],
-                    [
-                        "key" => "xcpfcnpj",
-                        "value" => $this->cpfCnpj
-                    ],
-                    [
-                        "key" => "xnompessoa",
-                        "value" => $this->cpfCnpj
-                    ],
-                    [
-                        "key" => "xtpopessoa",
-                        "value" => $this->tipoPessoa
-                    ],
-                    [
-                        "key" => "xcodcooperativa",
-                        "value" => "3003"
-                    ]
+                [
+                    "key" => "xnompessoa",
+                    "value" => $this->cpfCnpj
                 ],
-                "partition" => "SYLLOSDOC_GED",
-                "publicDocument" => true,
-                "systemOrigin" => "SyllosDoc",
-                "tags" => [
-                    $this->cpfCnpj
+                [
+                    "key" => "xtpopessoa",
+                    "value" => $this->tipoPessoa
                 ],
-                "typeDocument" => "PASTA_VIRTUAL",
-                "virtual" => true,
-                "entityOwner" => [
-                    "cooperative" => "Sicredi Serrana",
-                    "agency" => "37",
-                    "context" => "cas-p"
-                ],
-                "idAuthenticity" => "ORIGINAL"
-            ]
-        ];
+                [
+                    "key" => "xcodcooperativa",
+                    "value" => "3003"
+                ]
+            ],
+            "partition" => "SYLLOSDOC_GED",
+            "publicDocument" => true,
+            "systemOrigin" => "SyllosDoc",
+            "tags" => [
+                $this->cpfCnpj
+            ],
+            "typeDocument" => "PASTA_VIRTUAL",
+            "virtual" => true,
+            "entityOwner" => [
+                "cooperative" => "Sicredi Serrana",
+                "agency" => "37",
+                "context" => "cas-p"
+            ],
+            "idAuthenticity" => "ORIGINAL"
+        ]);
     }
 
     protected function createFolder(string $title)
     {
         $body = $this->getDefaultBody($title);
 
-        $request = Http::withHeaders([
+        $request = Http::dd()->withHeaders([
             'Content-Type: application/json',
             'userLogged' => 'sysadmin',
             'enctype' => 'multipart/formdata'
         ])
             ->withoutVerifying()
             ->withToken($this->getToken())
-            ->post(self::$base_api . 'ged-document/document', $body);
+            ->attach('in', $body)
+            ->post(self::$base_api . 'ged-document/document');
 
         dd($request);
     }
