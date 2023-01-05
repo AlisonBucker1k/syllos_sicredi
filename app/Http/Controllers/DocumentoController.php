@@ -84,9 +84,11 @@ class DocumentoController extends Controller
             'userLogged' => 'sysadmin',
             'enctype' => 'multipart/formdata'
         ])
-            ->post(self::$base_api . 'ged-document/document', $body)->json();
+            ->post(self::$base_api . 'ged-document/document', $body);
 
-        dd($request);
+        if ($request->successful()) {
+            dd($request);
+        }
     }
 
     public function newDocumentAction(Request $request)
@@ -98,7 +100,7 @@ class DocumentoController extends Controller
         $this->cpfCnpj = $paths[0];
         $this->tipoPessoa =  (strlen($this->cpfCnpj) > 11) ? "PJ" : "PF";
 
-        foreach($paths as $path) {
+        foreach ($paths as $path) {
             $this->createFolder($path);
         }
     }
@@ -109,8 +111,11 @@ class DocumentoController extends Controller
             'userLogged' => 'sysadmin'
         ])
             ->withToken($this->getToken())
-            ->get(self::$base_api . "ged-document/document/{$document_id}")->json();
+            ->get(self::$base_api . "ged-document/document/{$document_id}");
 
+        if ($resp->successful()) {
+            dd($resp);
+        }
         dd($resp);
     }
 
