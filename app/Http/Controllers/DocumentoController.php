@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentoController extends Controller
 {
+    protected string $cpfCnpj;
+    protected string $tipoPessoa;
+
     private static $base_api = 'http://apim-canais.hom.sicredi.net:8280/';
     protected static $credential = 'Q2JQVFljNk45ZF92ZDAxdDJ3ejYySlpnU2tnYTowd3EzSE5XVEtMNTBWZUhtTXZlMWhMNXNlamNh';
 
@@ -17,12 +20,13 @@ class DocumentoController extends Controller
         return view('newDocument');
     }
 
-    public function newDocumentAction(Request $request)
+    protected function getDefaultBody(?string $title = null)
     {
-        // Cria pasta
+        $titulo = $title ? $title : $this->cpfCnpj;
 
-        $body = [
+        return [
             'in' => [
+                "title" => $titulo,
                 "author" => "app_ged_syllosdoc",
                 "roles" => [
                     "sg_pessoa"
@@ -33,33 +37,32 @@ class DocumentoController extends Controller
                 ],
                 "metadatas" => [
                     [
-                    "key" => "xsglsistemaorigem",
-                    "value" => "syllosdoc"
+                        "key" => "xsglsistemaorigem",
+                        "value" => "syllosdoc"
                     ],
                     [
-                    "key" => "xcpfcnpj",
-                    "value" => $request->cpfcnpj
+                        "key" => "xcpfcnpj",
+                        "value" => $this->cpfCnpj
                     ],
                     [
-                    "key" => "xnompessoa",
-                    "value" => $request->cpfcnpj
+                        "key" => "xnompessoa",
+                        "value" => $this->cpfCnpj
                     ],
                     [
-                    "key" => "xtpopessoa",
-                    "value" => "PF"
+                        "key" => "xtpopessoa",
+                        "value" => $this->tipoPessoa
                     ],
                     [
-                    "key" => "xcodcooperativa",
-                    "value" => "3003"
+                        "key" => "xcodcooperativa",
+                        "value" => "3003"
                     ]
                 ],
                 "partition" => "SYLLOSDOC_GED",
                 "publicDocument" => true,
                 "systemOrigin" => "SyllosDoc",
                 "tags" => [
-                    $request->cpfcnpj
+                    $this->cpfCnpj
                 ],
-                "title" => $request->cpfcnpj,
                 "typeDocument" => "PASTA_VIRTUAL",
                 "virtual" => true,
                 "entityOwner" => [
@@ -70,16 +73,34 @@ class DocumentoController extends Controller
                 "idAuthenticity" => "ORIGINAL"
             ]
         ];
+    }
 
-        $request = Http::withToken($this->getToken())
-            ->withHeaders([
-                'Content-Type: application/json',
-                'userLogged' => 'sysadmin',
-                'enctype' => 'multipart/formdata'
-            ])
-            ->post(self::$base_api.'ged-document/document', $body)->json();
+    protected function createFolder(string $title)
+    {
+        $body = $this->getDefaultBody($title);
+
+        $request = Http::withHeaders([
+            'Content-Type: application/json',
+            'userLogged' => 'sysadmin',
+            'enctype' => 'multipart/formdata'
+        ])
+            ->post(self::$base_api . 'ged-document/document', $body)->json();
 
         dd($request);
+    }
+
+    public function newDocumentAction(Request $request)
+    {
+        $fullPath = $request->caminho;
+        $fullPath = str_replace("\\", "/", $fullPath);
+        $paths = explode("/", $fullPath);
+
+        $this->cpfCnpj = $paths[0];
+        $this->tipoPessoa =  (strlen($this->cpfCnpj) > 11) ? "PJ" : "PF";
+
+        foreach($paths as $path) {
+            $this->createFolder($path);
+        }
     }
 
     public function getDocument($document_id)
@@ -88,7 +109,7 @@ class DocumentoController extends Controller
             'userLogged' => 'sysadmin'
         ])
             ->withToken($this->getToken())
-            ->get(self::$base_api."ged-document/document/{$document_id}")->json();
+            ->get(self::$base_api . "ged-document/document/{$document_id}")->json();
 
         dd($resp);
     }
@@ -123,13 +144,13 @@ class DocumentoController extends Controller
             ]
         ];
 
-        $c = curl_init(self::$base_api.'ged-document/document/search');
+        $c = curl_init(self::$base_api . 'ged-document/document/search');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, http_build_query($body));
         curl_setopt($c, CURLOPT_HTTPHEADER, [
             'Host: 15.228.95.130',
-            'Authorization: '.$this->getToken()
+            'Authorization: ' . $this->getToken()
         ]);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
@@ -139,18 +160,17 @@ class DocumentoController extends Controller
         $response = json_decode($resp);
 
         dd($response);
-
     }
 
     private function getToken()
     {
-        $c = curl_init(self::$base_api.'token?grant_type=client_credentials');
+        $c = curl_init(self::$base_api . 'token?grant_type=client_credentials');
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
         curl_setopt($c, CURLOPT_HTTPHEADER, [
             'Host: 15.228.95.130',
-            'Authorization: Bearer '.self::$credential
+            'Authorization: Bearer ' . self::$credential
         ]);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
