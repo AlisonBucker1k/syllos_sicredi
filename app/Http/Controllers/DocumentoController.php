@@ -81,7 +81,7 @@ class DocumentoController extends Controller
         ])
             ->withoutVerifying()
             ->withToken($this->getToken())
-            ->post(self::$base_api . 'ged-document/document', ['in' => $body]);
+            ->post(self::$base_api . 'ged-document/document', ['in' => json_encode($body)]);
 
         dd($request);
     }
