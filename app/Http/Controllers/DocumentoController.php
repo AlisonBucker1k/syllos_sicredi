@@ -81,7 +81,7 @@ class DocumentoController extends Controller
             'Content-Type' => 'application/json'
         ])->withBody(json_encode(['in' => json_encode($body)]), 'application/json')
             ->withToken($this->getToken())
-            ->post(self::$base_api . 'ged-document/document', ['in' => $body]);
+            ->post(self::$base_api . 'ged-document/document');
 
         dd($request);
     }
