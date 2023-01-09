@@ -80,6 +80,7 @@ class DocumentoController extends Controller
             'userLogged' => 'sysadmin',
             'Content-Type' => 'application/json'
         ])
+            ->attach("a", "asd")
             ->withoutVerifying()
             ->withToken($this->getToken())
             ->post(self::$base_api . 'ged-document/document', ['in' => $body]);
