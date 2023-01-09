@@ -21,4 +21,4 @@ Route::prefix('/')->controller(DocumentoController::class)->group(function () {
     Route::get('get-documento/{document_id}', 'getDocument');
 });
 
-Route::get('/documento/{document_id}', [DocumentoController::class, "getDocument"]);
+Route::get('/documento/{document_id}', [DocumentoController::class, "getDocument"])->name('getDocument');

@@ -6,5 +6,9 @@
     <button type="submit">Enviar</button>
 </form>
 
+<a href="{{ route('getDocument') }}"">
+    <button type="button">Get Document</button>
+</a>
+
 
 09752732992
