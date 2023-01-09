@@ -76,7 +76,7 @@ class DocumentoController extends Controller
     {
         $body = $this->getDefaultBody($title);
 
-        $request = Http::dd()->withHeaders([
+        $request = Http::withHeaders([
             'userLogged' => 'sysadmin',
             'Content-Type' => 'application/json'
         ])->withBody(json_encode(['in' => json_encode($body)]), 'application/json')
