@@ -76,7 +76,7 @@ class DocumentoController extends Controller
     {
         $body = $this->getDefaultBody($title);
 
-        $request = Http::withHeaders([
+        $request = Http::dd()->withHeaders([
             'userLogged' => 'sysadmin',
             'Content-Type' => 'multipart/form-data'
         ])->withToken($this->getToken())
