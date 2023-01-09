@@ -79,7 +79,9 @@ class DocumentoController extends Controller
         $request = Http::withHeaders([
             'userLogged' => 'sysadmin',
         ])->withToken($this->getToken())
-            ->attach('in', json_encode($body))
+            ->attach('in', json_encode($body), null, [
+                'Content-Type' => 'application/json'
+            ])
             ->post(self::$base_api . 'ged-document/document');
 
         dd($request);
