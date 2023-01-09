@@ -80,14 +80,8 @@ class DocumentoController extends Controller
             'userLogged' => 'sysadmin',
             'Content-Type' => 'multipart/form-data'
         ])->withToken($this->getToken())
-            ->attach('al', 'any')
-            ->post(self::$base_api . 'ged-document/document', [
-                [
-                    'name' => 'in',
-                    'contents' => json_encode($body),
-                    'headers' => ['Content-Type' => 'application/json']
-                ]
-            ]);
+            ->attach('in', json_encode($body), null, ['Content-Type' => 'application/json'])
+            ->post(self::$base_api . 'ged-document/document');
 
         dd($request);
     }
