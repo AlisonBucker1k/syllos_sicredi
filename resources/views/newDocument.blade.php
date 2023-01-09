@@ -6,7 +6,7 @@
     <button type="submit">Enviar</button>
 </form>
 
-<a href="{{ route('getDocument') }}"">
+<a href="{{ route('getDocument', ['document_id' => '200943881']) }}"">
     <button type="button">Get Document</button>
 </a>
 
