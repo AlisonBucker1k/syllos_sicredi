@@ -20,6 +20,5 @@ Route::prefix('/')->controller(DocumentoController::class)->group(function () {
     Route::post('novo-documento', 'newDocumentAction')->name('send-file');
     Route::get('get-documento/{document_id}', 'getDocument');
 });
-// Route::prefix('documento/')->name('documento.')->controller(DocumentoController::class)->group(function () {
-//     Route::get('cpf', 'getFolderByCpf')->name('cpf');
-// });
+
+Route::get('/documento/{document_id}', [DocumentoController::class, "getDocument"]);
